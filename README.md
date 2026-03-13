@@ -1,1 +1,30 @@
 
+> 💡 **안내:** 본 README.md 문서는 과제 수행 및 문서화 과정에서 생성형 AI의 도움을 받아 작성되었습니다.
+
+# 📌 PRD: 사하구청 AI 상담사 프로토타입 개발
+
+## 1. 프로젝트 배경 및 목표 (Objective & Background)
+* [cite_start]**배경:** 공공기관 홈페이지는 다양한 행정 정보와 민원 안내 서비스를 제공하고 있으나, 메뉴 구조가 복잡하여 사용자가 필요한 정보를 찾기 어려운 문제가 있습니다[cite: 22].
+* [cite_start]**목표:** 사하구청 공식 홈페이지의 행정 정보를 기반으로, 자연어 질의를 통해 필요한 정보를 즉시 제공하는 AI 상담사 프로토타입을 개발합니다[cite: 24].
+
+## 2. 타겟 사용자 (Target Audience)
+* [cite_start]민원 신청 절차, 행정 서비스, 복지 정보 등 다양한 정보를 빠르고 편리하게 확인하고자 하는 **사하구 주민 및 홈페이지 방문자**[cite: 23].
+
+## 3. 핵심 기능 및 요구사항 (Features & Requirements)
+* [cite_start]**비정형 공공데이터 수집 및 구조화:** 사하구청 홈페이지 행정 정보 크롤링 및 LLM 기반 자동 메타데이터(부서, 주제, 키워드) 태깅[cite: 52, 62, 64].
+* [cite_start]**하이브리드 검색 (Hybrid Retrieval):** 메타데이터 기반 필터링(1단계)과 Vector 기반 의미 검색(2단계)을 결합하여 정확도 향상[cite: 55, 69, 71, 74].
+* [cite_start]**멀티턴 대화 처리 (Multi-turn Dialogue):** 이전 대화 문맥을 유지하고 사용자 질문 의도를 파악하여 대화 흐름 유지[cite: 56, 77, 79].
+* [cite_start]**자연어 요약 및 출처 제공:** 행정 용어를 이해하기 쉬운 자연어로 요약하고, 답변의 근거가 되는 홈페이지 URL 제공[cite: 57, 84, 85].
+* [cite_start]**보안 및 프라이버시:** 개인정보 입력 시 데이터 저장 및 AI 학습 방지 처리[cite: 58, 95].
+
+## 4. 기술 스택 (Tech Stack)
+* [cite_start]**Language:** Python [cite: 29, 31]
+* [cite_start]**AI & Framework:** LLM, LangChain, RAG [cite: 32, 33]
+* [cite_start]**Data & DB:** Pandas, Vector DB (FAISS 또는 Chroma) [cite: 35, 37]
+* [cite_start]**Backend:** FastAPI 기반 비동기 서버 [cite: 38]
+* [cite_start]**Frontend:** 반응형 웹 인터페이스 [cite: 39]
+
+## 5. 성공 지표 (Success Metrics)
+* [cite_start]**기능 및 정확도:** 실제 행정 질문 사례 입력 시 관련 정보를 바탕으로 정확한 자연어 답변 생성 여부[cite: 89, 91].
+* [cite_start]**보안성:** 시스템 내 개인정보 입력 시 정상적으로 마스킹 및 저장 방지가 이루어지는지 검증[cite: 95].
+* [cite_start]**사용성:** 사용자 인터페이스의 편의성 및 원활한 응답 속도 달성[cite: 93].
