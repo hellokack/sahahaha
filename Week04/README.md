@@ -3,7 +3,7 @@
 # 🍇 [4주차] GitHub Flow 및 코드리뷰 협업 실습
 
 ## 1. Feature 브랜치 및 PR 생성 (Conventional Commits)
-* **PR 링크:** [여기에 생성할 PR 링크 첨부]
+* **PR 링크:** (https://github.com/hellokack/sahahaha/pull/14)
 * `feat/chat-ui` 등의 브랜치를 생성하여 작업 후, Conventional Commits 규칙(feat, fix 등)을 준수하여 PR을 생성하였습니다.
 
 ## 2. 코드 리뷰 수행
