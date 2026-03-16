@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>DORA Metrics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; padding: 20px; }
+        .container { width: 80%; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; }
+        .charts { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .chart-box { width: 45%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 사하구청 AI 상담사 - DORA 메트릭 대시보드</h1>
+        <div class="charts">
+            <div class="chart-box"><canvas id="leadTimeChart"></canvas></div>
+            <div class="chart-box"><canvas id="deployFreqChart"></canvas></div>
+            <div class="chart-box"><canvas id="mttrChart"></canvas></div>
+            <div class="chart-box"><canvas id="cfrChart"></canvas></div>
+        </div>
+    </div>
+    <script>
+        // Chart.js를 이용한 4대 지표 가상 데이터 시각화
+        const createChart = (id, label, data, color) => {
+            new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: { labels: ['1주차', '2주차', '3주차', '4주차'], datasets: [{ label: label, data: data, backgroundColor: color }] },
+                options: { responsive: true, scales: { y: { beginAtZero: true } } }
+            });
+        };
+        createChart('leadTimeChart', 'Lead Time for Changes (시간)', [48, 36, 24, 12], 'rgba(54, 162, 235, 0.6)');
+        createChart('deployFreqChart', 'Deployment Frequency (회/주)', [1, 3, 5, 7], 'rgba(75, 192, 192, 0.6)');
+        createChart('mttrChart', 'MTTR (시간)', [10, 8, 4, 2], 'rgba(255, 206, 86, 0.6)');
+        createChart('cfrChart', 'Change Failure Rate (%)', [25, 15, 10, 5], 'rgba(255, 99, 132, 0.6)');
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+name: DORA Metrics Auto-Collection
+
+# 언제 이 로봇이 실행될지 정합니다. (코드가 Push 될 때마다, 혹은 수동으로 버튼 누를 때)
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  collect-metrics:
+    runs-on: ubuntu-latest # 로봇이 일할 가상의 컴퓨터 환경 (리눅스)
+
+    steps:
+    # 1. 내 깃허브 저장소의 코드를 로봇 컴퓨터로 가져옵니다.
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. 로봇 컴퓨터에 파이썬을 설치합니다.
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. 우리가 만든 2주차 파이썬 스크립트를 실행합니다. (데이터 수집 및 JSON 생성)
+    - name: Run metrics collection script
+      run: python Week02/collect_metrics.py
+
+    # 4. 생성된 JSON 파일을 다운로드할 수 있게 아티팩트(Artifact)로 저장합니다. (선택 과제 달성!)
+    - name: Upload DORA JSON Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: dora-metrics-report
+        path: Week02/dora_metrics.json
