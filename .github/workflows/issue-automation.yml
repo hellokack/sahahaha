@@ -1,0 +1,32 @@
+name: 팀 협업 자동화 워크플로우 (Auto-reply & SLA)
+
+on:
+  issues:
+    types: [opened] # 누군가 이슈를 새로 열었을 때 작동
+  schedule:
+    - cron: '0 0 * * 0' # 매주 일요일 자정에 정기적으로 작동 (주간 요약용)
+
+jobs:
+  # 1. 자동 응답 및 SLA(서비스 수준 약정) 안내 로봇
+  auto-response:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    steps:
+      - name: 새 이슈에 자동 댓글 달기
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 이슈를 등록해 주셔서 감사합니다! 팀원들이 확인 후 24시간 이내에 답변을 드릴 예정입니다. (SLA: 24시간 이내 첫 응답)'
+            })
+
+  # 2. 주간 요약 알림 초안 (임시)
+  weekly-summary:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: 주간 요약 실행 확인
+        run: echo "이번 주 이슈 처리 현황 및 주간 요약 스크립트가 실행됩니다."
