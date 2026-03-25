@@ -1,0 +1,25 @@
+name: 재사용 가능한 테스트 워크플로우
+
+on:
+  workflow_call: # 🔥 최적화 핵심 2: 다른 워크플로우에서 호출(재사용)할 수 있게 만듭니다.
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ["3.10", "3.11"]
+    steps:
+      - name: 코드 체크아웃
+        uses: actions/checkout@v4
+      
+      - name: Composite Action 호출 (환경 세팅 및 캐싱)
+        uses: ./.github/actions/setup-python-env
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: 테스트 실행
+        run: |
+          cd Week08
+          pytest

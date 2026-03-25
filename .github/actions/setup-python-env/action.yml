@@ -1,0 +1,20 @@
+name: 'Setup Python and Pip Cache'
+description: 'Python 세팅 및 pip 캐싱을 수행하는 Composite Action'
+inputs:
+  python-version:
+    description: '사용할 Python 버전'
+    required: true
+    default: '3.11'
+runs:
+  using: "composite"
+  steps:
+    - name: Python 환경 세팅 및 캐싱 적용
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+        cache: 'pip' # 🔥 최적화 핵심 1: 패키지를 매번 다운받지 않고 캐시(저장)해둡니다!
+    - name: 패키지 설치
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r Week08/requirements.txt
+      shell: bash
