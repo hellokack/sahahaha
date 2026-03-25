@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: 1. 저장소 코드 불러오기
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # ✨ 최신 버전으로 수정
 
       - name: 2. Python ${{ matrix.python-version }} 환경 세팅
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # ✨ 최신 버전으로 수정
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: 6. 테스트 결과 아티팩트(Artifact) 업로드
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # ✨ 핵심 수정: v3에서 v4로 변경!
         with:
           name: test-results-artifact
           path: Week07/test-results.txt
@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 1. 테스트 결과 아티팩트 다운로드
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4 # ✨ 핵심 수정: v3에서 v4로 변경!
         with:
           name: test-results-artifact
 
