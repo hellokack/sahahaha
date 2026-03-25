@@ -13,4 +13,4 @@
 4. **복합 워크플로우 구성 (아티팩트):** `build-and-test` 잡이 성공해야만 `deploy` 잡이 실행되도록 의존성(`needs`)을 설정. 빌드 단계에서 생성된 `test-results.txt`를 아티팩트로 업로드하고 배포 단계에서 다운로드하여 활용
 
 ## 3. 제출 링크
-* **Actions 실행 내역 및 Workflow 파일:** [GitHub Actions 탭에서 링크 복사 후 붙여넣기]
+* **Actions 실행 내역 및 Workflow 파일:** [https://github.com/hellokack/sahahaha/actions/runs/23527741132]
