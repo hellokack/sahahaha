@@ -1,0 +1,33 @@
+name: 과제 2 Matrix 빌드 실습
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  matrix-test:
+    # 매트릭스에 정의된 OS를 참조하여 실행 환경을 결정합니다.
+    runs-on: ${{ matrix.os }}
+    
+    strategy:
+      matrix:
+        # 3개의 Node.js 버전과 2개의 OS를 조합합니다. (총 6개의 잡 생성)
+        node-version: [16, 18, 20]
+        os: [ubuntu-latest, windows-latest]
+        
+    steps:
+      - name: 저장소 코드 불러오기
+        uses: actions/checkout@v4
+
+      - name: Node.js ${{ matrix.node-version }} 환경 세팅
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 테스트 실행 및 버전 확인
+        run: |
+          echo "현재 실행 중인 운영체제: ${{ matrix.os }}"
+          echo "현재 실행 중인 Node.js 버전:"
+          node -v
+          echo "현재 실행 중인 npm 버전:"
+          npm -v
