@@ -1,0 +1,32 @@
+name: 기본 CI 파이프라인 실습
+
+on: 
+  push:
+    branches: [ "main" ] # 코드가 Push 될 때 자동으로 트리거됩니다.
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. 저장소 코드 불러오기
+        uses: actions/checkout@v4
+
+      - name: 2. Python 환경 세팅
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 3. 의존성 패키지 설치
+        run: |
+          cd Practice_CI
+          pip install -r requirements.txt
+
+      - name: 4. Lint 검사 (flake8)
+        run: |
+          cd Practice_CI
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+      - name: 5. 단위 테스트 실행 (pytest)
+        run: |
+          cd Practice_CI
+          pytest
