@@ -1,0 +1,52 @@
+name: 과제 4 복합 워크플로우 실습
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # 1. Build 잡: 빌드 결과물(아티팩트) 생성 후 업로드
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 저장소 코드 불러오기
+        uses: actions/checkout@v4
+      
+      - name: 빌드 수행 (가상의 결과물 파일 생성)
+        run: |
+          mkdir dist
+          echo "성공적으로 빌드된 최신 버전의 파일입니다!" > dist/build-result.txt
+          
+      - name: 빌드 결과물 아티팩트(Artifact) 업로드
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-build-file
+          path: dist/build-result.txt
+
+  # 2. Test 잡: Build가 완벽히 끝난 후에만 실행 (needs)
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: 테스트 코드 실행
+        run: |
+          echo "🔍 빌드된 코드를 바탕으로 테스트를 진행합니다..."
+          echo "✅ 모든 테스트 케이스 통과 완료!"
+
+  # 3. Deploy 잡: Test까지 성공 & main 브랜치일 때만 실행 (needs, if)
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 앞서 업로드한 빌드 아티팩트 다운로드
+        uses: actions/download-artifact@v4
+        with:
+          name: app-build-file
+          path: deploy-folder
+          
+      - name: 최종 배포 수행
+        run: |
+          echo "📥 전달받은 빌드 결과물 확인:"
+          cat deploy-folder/build-result.txt
+          echo "🚀 프로덕션 서버로 성공적으로 배포되었습니다!"
