@@ -1,0 +1,35 @@
+name: Week13 Lean Startup Weekly Report
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 매주 월요일 자정에 실행
+  workflow_dispatch: # 수동 실행 버튼 활성화
+
+jobs:
+  run-experiment-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run Persona Feedback Simulation
+        run: node Week13/simulate_feedback.js > feedback_result.txt
+
+      - name: Run A/B Test Metrics Analysis
+        run: node Week13/analyze_metrics.js > metrics_result.txt
+
+      - name: Create GitHub Issue for Weekly Backlog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "### 🚀 주간 A/B 테스트 지표 리포트" > issue_body.md
+          echo "#### 1. 페르소나 피드백 결과" >> issue_body.md
+          cat feedback_result.txt >> issue_body.md
+          echo "#### 2. 핵심 지표 측정 결과" >> issue_body.md
+          cat metrics_result.txt >> issue_body.md
+          
+          gh issue create --title "[주간 리포트] Feature Flag A/B 테스트 성과 분석" --body-file issue_body.md --label "experiment"
