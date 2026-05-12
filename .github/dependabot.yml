@@ -1,19 +1,10 @@
-# .github/dependabot.yml
 version: 2
 updates:
-  # npm 패키지 의존성 검사 정책
-  - package-ecosystem: "npm"
-    directory: "/Week09"
+  - package-ecosystem: "npm" # Node.js 패키지 보안 검사
+    directory: "/"
     schedule:
-      interval: "weekly" # 매주 검사
-    groups:
-      # 모든 npm 업데이트를 하나의 PR로 그룹화 (과제 조건 충족)
-      npm-dependencies:
-        patterns:
-          - "*"
-          
-  # Docker 이미지 검사 정책
-  - package-ecosystem: "docker"
-    directory: "/Week09"
+      interval: "weekly"
+  - package-ecosystem: "github-actions" # Actions 파이프라인 보안 검사
+    directory: "/"
     schedule:
       interval: "weekly"
