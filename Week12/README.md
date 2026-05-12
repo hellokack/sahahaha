@@ -22,7 +22,7 @@
 
 ### ✅ 12주차 과제 결과 확인 (CI Success)
 
-🔗 **GitHub Actions 테스트 성공 기록:** * [여기에 아까 성공 화면의 URL을 복사해서 붙여넣어 주세요!]
+🔗 **GitHub Actions 테스트 성공 기록:** [https://github.com/hellokack/sahahaha/actions/runs/25712174834](https://github.com/hellokack/sahahaha/actions/runs/25712174834)
 
 ---
 본 문서는 생성형 AI의 도움을 받아 작성되었습니다.
