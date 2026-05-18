@@ -16,23 +16,33 @@ jobs:
         with:
           node-version: '20'
 
+      # 모든 명령어를 week12 폴더 안에서 실행하도록 cd 명령어를 추가했습니다.
+       Buch
       - name: 패키지 설치
-        run: npm install
+        run: |
+          cd week12
+          npm install
 
       - name: Playwright 브라우저 설치
-        run: npx playwright install --with-deps
+        run: |
+          cd week12
+          npx playwright install --with-deps
 
       - name: 단위 테스트 실행 (Jest)
-        run: npm run test:coverage
+        run: |
+          cd week12
+          npm run test:coverage
 
-      - name: E2E 테스트 실행 (Playwright) - 여기서 실패할 예정!
-        run: npm run test:e2e
+      - name: E2E 테스트 실행 (Playwright) - 여기서 의도적 실패 발생
+        run: |
+          cd week12
+          npm run test:e2e
 
-      # ★ 이 부분이 핵심입니다! 테스트가 실패하더라도 스크린샷을 Artifacts에 업로드합니다.
+      # ★ 핵심: 아티팩트가 저장되는 경로를 week12 내부로 정확히 지정했습니다.
       - name: 실패 시 스크린샷 업로드
         if: failure() 
         uses: actions/upload-artifact@v4
         with:
           name: playwright-failure-screenshots
-          path: test-results/
+          path: week12/test-results/
           retention-days: 7
