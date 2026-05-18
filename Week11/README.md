@@ -28,7 +28,7 @@
 ### ✅ 11주차 과제 결과 확인 (Live URL)
 
 🔗 **11주차 Feature Flag 실습 주소:** * [https://sahahaha-week11.vercel.app](https://sahahaha-week11.vercel.app)
-*(방금 Vercel에서 새로 만드신 주소를 여기에 적어주세요!)*
+
 
 ---
 본 문서는 생성형 AI의 도움을 받아 작성되었습니다.
