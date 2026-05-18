@@ -1,24 +1,38 @@
-name: Week12 Shift-Left Test CI
+name: Week12 CI Pipeline
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
+      - name: 소스코드 가져오기
+        uses: actions/checkout@v4
+
       - name: Node.js 세팅
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          
-      - name: 의존성 설치 및 테스트 실행 (커버리지 측정)
-        run: |
-          cd Week12
-          npm install
-          npm run test:coverage
+
+      - name: 패키지 설치
+        run: npm install
+
+      - name: Playwright 브라우저 설치
+        run: npx playwright install --with-deps
+
+      - name: 단위 테스트 실행 (Jest)
+        run: npm run test:coverage
+
+      - name: E2E 테스트 실행 (Playwright) - 여기서 실패할 예정!
+        run: npm run test:e2e
+
+      # ★ 이 부분이 핵심입니다! 테스트가 실패하더라도 스크린샷을 Artifacts에 업로드합니다.
+      - name: 실패 시 스크린샷 업로드
+        if: failure() 
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-failure-screenshots
+          path: test-results/
+          retention-days: 7
