@@ -1,25 +1,24 @@
 # RUNBOOK
 
-## Service
+## 서비스 정보
 
-- App folder: `Week14_Final_SahahaAI`
-- Local start command: `python main.py --mode web`
-- Default port: `5000`
-- If port `5000` is busy, set `FLASK_PORT` to another value such as `5001`
-- Health check: `GET /healthz`
-- Metrics / admin stats: `GET /api/stats` with `X-Admin-Key`
+- 앱 폴더: `Week14_Final_SahahaAI`
+- 로컬 실행 명령어: `python main.py --mode web`
+- 기본 포트: `5000`
+- 포트 충돌 시 예시: `set FLASK_PORT=5001`
+- 헬스체크: `GET /healthz`
+- 관리자 통계 API: `GET /api/stats` + `X-Admin-Key`
 
-## Deployment Plan
+## 배포 흐름
 
-The intended release flow is:
+1. `main` 기준 코드 준비
+2. PR 게이트 CI 통과
+3. Render 또는 Railway에 환경변수 설정
+4. 서비스 배포
+5. `/healthz` 확인
+6. 메인 화면과 채팅 응답 확인
 
-1. Open a pull request into `main`
-2. Pass the PR gate workflow
-3. Merge into `main`
-4. Deploy the `Week14_Final_SahahaAI` app with environment variables configured
-5. Confirm `GET /healthz` returns `status=ok`
-
-## Required Environment Variables
+## 필수 환경변수
 
 - `SECRET_KEY`
 - `GROQ_API_KEY`
@@ -28,11 +27,9 @@ The intended release flow is:
 - `SUPABASE_SERVICE_KEY`
 - `ADMIN_API_KEY`
 
-See `Week14_Final_SahahaAI/.env.example` for the local template.
+로컬 템플릿은 [Week14_Final_SahahaAI/.env.example](./Week14_Final_SahahaAI/.env.example)을 참고합니다.
 
-## Health Check
-
-Expected response:
+## 헬스체크 기대 응답
 
 ```json
 {
@@ -42,26 +39,26 @@ Expected response:
 }
 ```
 
-## Rollback Plan
+## 롤백 계획
 
-If a release fails:
+배포 실패 시 다음 순서로 복구합니다.
 
-1. Roll back to the previous Git tag or previous known-good commit.
-2. Re-deploy the previous revision.
-3. Re-run the health check on `/healthz`.
-4. Confirm `/api/stats` and the chat UI respond normally.
+1. 이전 안정 태그 또는 직전 정상 커밋으로 되돌림
+2. 이전 버전 재배포
+3. `/healthz` 재확인
+4. 메인 UI와 `/api/stats` 정상 동작 확인
 
-Recommended rollback anchor:
+권장 롤백 기준:
 
-- Latest stable release tag before the new deployment
+- `v1.0.0` 또는 그 이후의 최신 안정 태그
 
-## Observability
+## 관측성
 
-- Application logs: standard output plus `Week14_Final_SahahaAI/data/pipeline.log`
-- Metrics endpoint: `/api/stats`
-- Dashboard source: `/api/stats` JSON can be wired into a simple Grafana or spreadsheet dashboard
+- 애플리케이션 로그: 표준 출력 + `Week14_Final_SahahaAI/data/pipeline.log`
+- 메트릭 성격의 운영 정보: `/api/stats`
+- 대시보드 소스: `/api/stats` JSON을 기반으로 스프레드시트나 Grafana 등에 연결 가능
 
-## Smoke Test
+## 빠른 점검 명령어
 
 ```bash
 cd Week14_Final_SahahaAI

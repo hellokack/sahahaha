@@ -1,30 +1,32 @@
 # RETROSPECTIVE
 
-## What Went Well
+## 잘된 점
 
-- The project reached a working AI assistant with both UI and API.
-- Retrieval quality improved after official staff-directory integration for department and contact answers.
-- Privacy handling became safer through front-end blocking and reply masking.
-- The project accumulated enough documentation and operational context to be converted into a proper OSS submission.
+- UI와 API를 모두 포함한 동작 가능한 AI 서비스 형태까지 완성했다.
+- 공식 직원안내 페이지를 연동하면서 부서명과 연락처 응답 정확도가 좋아졌다.
+- 프론트 차단과 응답 마스킹을 통해 개인정보 처리 안전성이 높아졌다.
+- 문서와 운영 맥락을 보강해 OSS 제출 형태로 정리할 수 있었다.
 
-## What Was Difficult
+## 어려웠던 점
 
-- Department names and phone numbers were initially inconsistent because free-form content and structured contacts were mixed.
-- Korean text encoding and historical files made some edits more fragile than expected.
-- The original team repository structure was not optimized for an individual final submission.
+- 자유 형식 본문과 구조화된 연락처 정보가 섞여 있어 초기에는 부서명과 전화번호가 일관되지 않았다.
+- 한글 인코딩과 과거 파일 구조 때문에 수정이 예상보다 까다로운 부분이 있었다.
+- 원래 팀 저장소 구조는 개인 최종 제출용으로 최적화되어 있지 않았다.
 
-## What We Changed Late In The Project
+## 후반부에 바꾼 점
 
-- Added staff-directory crawling and contact enforcement.
-- Removed visible HTML fragments from privacy warnings.
-- Added dedicated submission documents, PR-gate workflow, and runbook material in the personal repository.
+- 직원안내 페이지 크롤링 및 공식 연락처 강제 적용 추가
+- 개인정보 경고문에 보이던 HTML 조각 제거
+- 개인 저장소에 제출 전용 문서, PR 게이트 워크플로, RUNBOOK 추가
 
-## What I Would Improve Next
+## 다음에 더 개선하고 싶은 점
 
-- Add a fully automated production deployment target with secrets-managed hosting.
-- Add a richer metrics dashboard on top of `/api/stats`.
-- Expand automated eval coverage for department-routing and privacy cases.
+- 비밀키 관리가 되는 완전 자동화 배포 구성 추가
+- `/api/stats` 위에 더 보기 좋은 운영 대시보드 추가
+- 부서 라우팅과 개인정보 차단 케이스에 대한 자동 평가 범위 확대
 
-## Final Reflection
+## 최종 소감
 
-The biggest lesson was that a useful AI feature is not enough by itself. The final submission also needs reproducibility, operational clarity, and safety evidence. Turning the team codebase into a personal OSS-style delivery highlighted how important documentation, release discipline, and testable interfaces are.
+이번 작업을 통해 동작하는 AI 기능만으로는 최종 제출이 충분하지 않다는 점을 분명히 느꼈습니다.
+재현 가능성, 운영 문서, 안전성, 테스트 근거까지 갖춰야 실제 제출물로 설득력이 생긴다는 것을 배웠습니다.
+팀 코드를 개인 OSS 스타일 제출물로 정리하는 과정 자체가 좋은 마무리 경험이었습니다.

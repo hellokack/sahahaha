@@ -1,20 +1,21 @@
 # DEPLOYMENT
 
-## Current Status
+## 현재 상태
 
-The repository is deployment-ready, but the final public URL still requires deployment-platform authentication.
+이 저장소는 배포 가능한 상태로 정리되어 있습니다.
+다만 최종 공개 URL 생성 자체는 Render 또는 Railway 계정 로그인과 권한이 있어야 완료됩니다.
 
-## Render Deployment
+## Render 배포
 
-This repository includes [render.yaml](./render.yaml) for Render Blueprint deployment.
+이 저장소에는 Render Blueprint용 [render.yaml](./render.yaml)이 포함되어 있습니다.
 
-### Required Settings
+### 기본 설정
 
-- Repository: `hellokack/sahahaha`
-- Root directory: `Week14_Final_SahahaAI`
-- Health check path: `/healthz`
+- 저장소: `hellokack/sahahaha`
+- 루트 디렉터리: `Week14_Final_SahahaAI`
+- 헬스체크 경로: `/healthz`
 
-### Required Environment Variables
+### 필요한 환경변수
 
 - `SECRET_KEY`
 - `GROQ_API_KEY`
@@ -22,31 +23,31 @@ This repository includes [render.yaml](./render.yaml) for Render Blueprint deplo
 - `SUPABASE_KEY`
 - `SUPABASE_SERVICE_KEY`
 - `ADMIN_API_KEY`
-- Optional: `CORS_ALLOWED_ORIGINS`
+- 선택: `CORS_ALLOWED_ORIGINS`
 
-### Expected Start Behavior
+### 실행 방식
 
-The app now respects the platform `PORT` environment variable.
+앱은 플랫폼이 제공하는 `PORT` 환경변수를 읽어 실행되도록 수정되어 있습니다.
 
-## Railway Deployment
+## Railway 배포
 
-Railway deployment is also prepared through [Week14_Final_SahahaAI/Dockerfile](./Week14_Final_SahahaAI/Dockerfile).
+Railway용으로도 [Week14_Final_SahahaAI/Dockerfile](./Week14_Final_SahahaAI/Dockerfile)을 기준으로 배포할 수 있게 준비했습니다.
 
-### Railway Steps
+### Railway 배포 순서
 
-1. Create a new project from the GitHub repository.
-2. Select the service source from `Week14_Final_SahahaAI`, or point Railway to the included Dockerfile.
-3. Set the required environment variables.
-4. Generate a public domain.
-5. Confirm `/healthz` returns `status=ok`.
+1. GitHub 저장소로 새 프로젝트 생성
+2. 서비스 소스를 `Week14_Final_SahahaAI`로 지정하거나 포함된 Dockerfile 선택
+3. 필수 환경변수 입력
+4. Public Domain 생성
+5. `/healthz`가 `status=ok`를 반환하는지 확인
 
-## Why the Live URL Is Still Pending
+## 아직 URL이 비어 있는 이유
 
-Creating the final public URL requires a logged-in Render or Railway account and deployment permission on that platform.
-That account-level action cannot be completed automatically from this local workspace alone.
+실제 공개 URL은 배포 플랫폼에 로그인한 계정에서 직접 생성해야 합니다.
+이 로컬 작업공간만으로는 계정 권한이 필요한 최종 배포 단계까지 자동 완료할 수 없습니다.
 
-## Final Manual Output To Record After Deployment
+## 배포 후 꼭 적어둘 값
 
-- Live URL: `TBD`
-- Health check URL: `TBD/healthz`
-- Demo video URL: `TBD`
+- 서비스 URL: `TBD`
+- 헬스체크 URL: `TBD/healthz`
+- 데모 영상 URL: `TBD`

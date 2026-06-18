@@ -1,44 +1,44 @@
 # MODEL CARD
 
-## System Purpose
+## 시스템 목적
 
-Sahaha answers public-service questions for Saha-gu Office using official web content and a retrieval-augmented generation pipeline.
+사하하 AI는 사하구청 관련 공공정보 질문에 대해 공식 웹페이지와 공식 직원안내 데이터를 바탕으로 답변하는 서비스입니다.
 
-## Models Used
+## 사용 모델
 
-- Generation model: Groq-hosted `llama-3.3-70b-versatile`
-- Embedding model: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
-- NER model for privacy masking: `Leo97/KoELECTRA-small-v3-modu-ner`
+- 생성 모델: Groq 기반 `llama-3.3-70b-versatile`
+- 임베딩 모델: `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`
+- 개인정보 인식용 NER 모델: `Leo97/KoELECTRA-small-v3-modu-ner`
 
-## Data Sources
+## 데이터 소스
 
-- Official Saha-gu website pages
-- Official Saha-gu staff directory:
+- 사하구청 공식 웹페이지
+- 사하구청 공식 직원안내 페이지  
   `https://www.saha.go.kr/portal/staff/list.do?mId=0604030000`
 
-## Intended Use
+## 의도된 사용 범위
 
-- Public information guidance
-- Department routing
-- Contact lookup
-- Civil-service information explanation
+- 공공정보 안내
+- 담당 부서 안내
+- 연락처 조회
+- 민원 관련 기초 설명
 
-## Out Of Scope
+## 범위 밖 사용
 
-- Legal advice
-- Medical diagnosis
-- Open-ended factual answers outside official Saha-gu sources
-- Processing of personal or sensitive user data
+- 법률 자문
+- 의료 진단
+- 사하구 공식 데이터 바깥의 개방형 사실 질의
+- 개인정보 또는 민감정보 처리
 
-## Safety Measures
+## 안전 장치
 
-- Front-end privacy-input blocking
-- Back-end personal-information masking
-- Official-source-only retrieval grounding
-- Contact enforcement from the official staff directory
+- 프론트엔드 개인정보 입력 차단
+- 백엔드 개인정보 마스킹
+- 공식 출처 기반 검색 제한
+- 공식 직원안내 페이지 기반 연락처 강제 적용
 
-## Known Limitations
+## 알려진 한계
 
-- Quality depends on the freshness of crawled official data
-- Some answers may require manual verification when the source site changes structure
-- Full production deployment still depends on external secret configuration
+- 답변 품질은 크롤링된 공식 데이터의 최신성에 영향을 받는다.
+- 원본 사이트 구조가 바뀌면 일부 답변 품질이 떨어질 수 있다.
+- 실제 운영 배포는 외부 플랫폼의 비밀키 설정에 의존한다.

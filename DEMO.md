@@ -1,81 +1,116 @@
 # DEMO
 
-## Demo Metadata
+## 데모 기본 정보
 
-- Live service URL: `TBD after platform login and deploy`
-- Video URL: `TBD after recording/upload`
-- Target duration: `2 minutes 30 seconds to 3 minutes`
+- 서비스 URL: `배포 후 입력`
+- 영상 URL: `촬영 후 업로드 링크 입력`
+- 목표 길이: `2분 30초 ~ 3분`
 
-## Demo Goal
+## 데모 목적
 
-Show that the final app is a working AI service with:
+다음 5가지를 짧고 분명하게 보여주는 것이 목표입니다.
 
-1. a functioning chat UI
-2. official department and contact lookup
-3. privacy-input blocking
-4. health-check visibility
-5. repository evidence for CI, security, rollback, and documentation
+1. 채팅 UI가 실제로 동작함
+2. 부서/연락처를 공식 데이터 기준으로 안내함
+3. 개인정보 입력을 차단함
+4. 헬스체크가 존재함
+5. 저장소에 CI, 보안, 롤백, 문서가 준비되어 있음
 
-## 3-Minute Demo Script
+## 영상 촬영 전 준비
 
-### 0:00 - 0:20 Intro
+### 1. `.env` 준비
 
-Hello. This is our final capstone AI OSS project, `Sahaha AI`.
-This service helps answer Saha-gu Office public-service questions through an AI chat interface.
-The final deliverable is organized in this personal GitHub repository, and the main application is inside `Week14_Final_SahahaAI`.
+`Week14_Final_SahahaAI/.env.example`을 참고해서 `.env` 파일을 만든 뒤 아래 값을 채웁니다.
 
-### 0:20 - 0:40 Repository Overview
+- `SECRET_KEY`
+- `GROQ_API_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_KEY`
+- `SUPABASE_SERVICE_KEY`
+- `ADMIN_API_KEY`
 
-Here are the final submission materials.
-The repository includes the README, contributing guide, code of conduct, license, runbook, architecture decision record, model card, changelog, and retrospective.
-It also includes GitHub Actions workflows for PR gate CI and security scanning, plus the release tag `v1.0.0`.
+### 2. 실행 명령어
 
-### 0:40 - 1:10 App Launch
+```bash
+cd Week14_Final_SahahaAI
+pip install -r requirements.txt
+python main.py --mode web
+```
 
-Now I will open the deployed web service or local running service.
-This is the main chat UI for Sahaha AI.
-The service is built with FastAPI and supports a public chat interface, chat reset, admin stats, and a health-check endpoint.
+### 3. 접속 주소
 
-### 1:10 - 1:40 Normal Public-Service Question
+```text
+http://127.0.0.1:5000
+```
 
-First, I will ask a normal administrative question such as trash-disposal schedule or a public-facility question.
-The chatbot returns a natural-language answer based on the retrieved Saha-gu information, and the key answer text is highlighted for readability.
+포트 충돌 시:
 
-### 1:40 - 2:10 Department and Contact Lookup
+```bash
+set FLASK_PORT=5001
+python main.py --mode web
+```
 
-Next, I will ask, "사하구청 AI 담당 부서 알려줘".
-The system looks up the official Saha-gu staff directory and returns the matching department context and phone number.
-This shows that the answer uses the staff-directory data instead of a guessed phone number.
+## 3분 발표 대본
 
-### 2:10 - 2:35 Privacy-Input Blocking
+### 0:00 - 0:20 소개
 
-Now I will enter a privacy-sensitive example such as a phone number or detailed personal information.
-The chatbot blocks the request and shows a warning message instead of processing that personal data.
-This demonstrates the privacy-protection requirement of the service.
+안녕하세요. 사하하 AI 캡스톤 AI OSS 최종 프로젝트입니다.
+이 서비스는 사하구청 관련 질문을 AI 채팅으로 안내하는 시스템입니다.
+최종 제출용 코드는 개인 GitHub 저장소에 정리했고, 실제 앱은 `Week14_Final_SahahaAI` 폴더에 있습니다.
 
-### 2:35 - 2:50 Health Check and Operations
+### 0:20 - 0:40 저장소 구성 소개
 
-Next, I will open `/healthz`.
-The response shows `status: ok`, the service name, and the version.
-For operations, the repository also includes a rollback plan in the runbook and observability through logs and the `/api/stats` endpoint.
+저장소에는 README, CONTRIBUTING, CODE_OF_CONDUCT, LICENSE가 포함되어 있습니다.
+또한 RUNBOOK, ADR, MODEL_CARD, CHANGELOG, RETROSPECTIVE 문서와 GitHub Actions 기반 CI 및 보안 워크플로가 준비되어 있습니다.
+릴리스 태그는 `v1.0.0`입니다.
 
-### 2:50 - 3:00 Closing
+### 0:40 - 1:00 서비스 실행 화면
 
-In summary, this project delivers a working AI feature, CI and security automation, health check support, rollback documentation, and the final OSS submission documents required for the course.
-Thank you.
+이제 실행 중인 웹 서비스를 보여드리겠습니다.
+이 화면이 사하하 AI 메인 채팅 UI입니다.
+FastAPI 기반으로 구현되었고, 채팅 응답, 대화 초기화, 관리자 통계, 헬스체크를 지원합니다.
 
-## Recommended Demo Inputs
+### 1:00 - 1:30 일반 질문 시연
+
+먼저 일반 행정 질문을 입력해 보겠습니다.
+예를 들어 쓰레기 배출 요일이나 생활 정보 관련 질문을 하면, 사하구 공식 데이터를 바탕으로 답변을 생성합니다.
+핵심 답변은 하이라이트되어 사용자가 중요한 내용을 바로 볼 수 있습니다.
+
+### 1:30 - 2:00 부서/연락처 시연
+
+이번에는 `사하구청 AI 담당 부서 알려줘`와 같은 질문을 입력해 보겠습니다.
+이 경우 공식 직원안내 페이지를 기준으로 적절한 부서와 전화번호를 안내합니다.
+즉, 추측한 번호가 아니라 공식 데이터 기반으로 부서와 연락처를 보여준다는 점이 핵심입니다.
+
+### 2:00 - 2:25 개인정보 차단 시연
+
+이제 전화번호처럼 개인정보가 포함된 입력을 넣어보겠습니다.
+시스템은 이 입력을 처리하지 않고 경고 메시지를 보여줍니다.
+이를 통해 개인정보 보호 기능이 동작함을 확인할 수 있습니다.
+
+### 2:25 - 2:45 헬스체크 및 운영 요소
+
+다음으로 `/healthz`를 열어 보겠습니다.
+여기서 `status: ok`와 서비스 정보가 반환됩니다.
+또한 저장소에는 롤백 계획 문서, 보안 점검 워크플로, 테스트, 운영용 통계 API가 포함되어 있습니다.
+
+### 2:45 - 3:00 마무리
+
+정리하면 이 프로젝트는 동작 가능한 AI 기능, 테스트와 CI, 보안 자동화, 헬스체크, 롤백 문서, 그리고 OSS 제출 문서를 모두 갖춘 최종 결과물입니다.
+감사합니다.
+
+## 추천 시연 질문
 
 - `쓰레기 배출 요일 어케돼`
 - `사하구청AI담당 부서 알려줘`
 - `123412-1231231`
 
-## Recording Checklist
+## 촬영 체크리스트
 
-- Show GitHub repository root
-- Show `Week14_Final_SahahaAI`
-- Show one normal answer
-- Show one department/contact answer
-- Show one privacy block
-- Show `/healthz`
-- Mention CI, security, rollback, and docs once
+- GitHub 저장소 루트 보여주기
+- `Week14_Final_SahahaAI` 폴더 보여주기
+- 일반 질문 1개 시연
+- 부서/연락처 질문 1개 시연
+- 개인정보 차단 1개 시연
+- `/healthz` 확인
+- 마지막에 CI, 보안, 롤백, 문서 언급

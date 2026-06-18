@@ -1,28 +1,29 @@
-# ADR-001: Final Submission Architecture
+# ADR-001: 최종 제출 저장소 구조 결정
 
-## Status
+## 상태
 
-Accepted
+채택됨
 
-## Context
+## 배경
 
-The final capstone submission needs a public GitHub repository, a working AI feature, a PR gate, health checks, rollback guidance, and observability evidence. The original team repository was not suitable for an individual submission, so the project needed a personal-repository mirror without secrets.
+캡스톤 최종 제출물은 공개 GitHub 저장소, 동작 가능한 AI 기능, PR 게이트, 헬스체크, 롤백 문서, 관측성 근거가 필요합니다.
+기존 팀 저장소는 개인 제출용으로 바로 내기에는 구조와 문서가 부족했기 때문에, 비밀정보 없이 제출 가능한 개인 저장소 형태로 재구성할 필요가 있었습니다.
 
-## Decision
+## 결정
 
-We keep the final application in the `Week14_Final_SahahaAI` folder inside this repository and treat the repository root as the submission and operations layer.
+최종 실행 애플리케이션은 이 저장소의 `Week14_Final_SahahaAI` 폴더에 두고, 저장소 루트는 제출 문서와 운영 문서를 두는 계층으로 사용합니다.
 
-Key decisions:
+주요 결정 사항:
 
-- Use FastAPI for the web server and chat API.
-- Keep the RAG pipeline in Python with official Saha-gu data as the only answer source.
-- Use the official Saha-gu staff directory as the source of truth for department contacts.
-- Provide a lightweight PR gate through GitHub Actions using syntax checks and unit tests.
-- Expose `GET /healthz` for health checks and `GET /api/stats` for operational metrics.
-- Document rollback and deployment procedure in `RUNBOOK.md`.
+- 웹 서버와 채팅 API는 FastAPI를 사용한다.
+- 답변 소스는 사하구 공식 데이터로 제한한다.
+- 부서 연락처의 기준 데이터는 사하구청 공식 직원안내 페이지로 통일한다.
+- GitHub Actions로 문법 검사와 단위 테스트 중심의 가벼운 PR 게이트를 제공한다.
+- `GET /healthz`를 헬스체크용으로 제공하고, `GET /api/stats`를 운영 확인용으로 제공한다.
+- 배포 절차와 롤백 절차는 `RUNBOOK.md`에 문서화한다.
 
-## Consequences
+## 결과
 
-- The repository satisfies the course OSS checklist more clearly than the original team repository.
-- Secrets remain external because `.env` is excluded.
-- The project is easier to review because submission documents live at the repository root and the executable app lives in one dedicated folder.
+- 원래 팀 저장소보다 과제 제출 체크리스트 충족 여부를 훨씬 명확하게 보여줄 수 있다.
+- `.env`를 제외함으로써 비밀정보는 저장소 밖에 유지된다.
+- 실행 코드는 한 폴더에 모으고, 제출 문서는 루트에 배치해 검토와 발표 준비가 쉬워졌다.
