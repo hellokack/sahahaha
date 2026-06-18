@@ -41,7 +41,7 @@ CHATBOT_TEMPERATURE = 0.3
 
 # ===== Flask 설정 =====
 FLASK_HOST = os.getenv("FLASK_HOST", "0.0.0.0")
-FLASK_PORT = int(os.getenv("FLASK_PORT", "5000"))
+FLASK_PORT = int(os.getenv("PORT", os.getenv("FLASK_PORT", "5000")))
 FLASK_DEBUG = os.getenv("FLASK_DEBUG", "false").lower() == "true"
 
 SECRET_KEY = os.getenv("SECRET_KEY")

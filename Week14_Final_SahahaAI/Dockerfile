@@ -15,4 +15,4 @@ COPY . /app
 
 EXPOSE 5000
 
-CMD ["python", "main.py", "--mode", "web"]
+CMD ["sh", "-c", "python -m uvicorn app:app --host 0.0.0.0 --port ${PORT:-5000}"]
