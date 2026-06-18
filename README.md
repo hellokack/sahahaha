@@ -2,6 +2,12 @@
 
 이 저장소는 `사하하(Sahaha)` 캡스톤 AI OSS 프로젝트의 개인 최종 제출용 저장소입니다.
 
+## 최종 제출 링크
+
+- GitHub 저장소: [hellokack/sahahaha](https://github.com/hellokack/sahahaha)
+- 시연 영상: [구글드라이브 시연영상](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing)
+- 공개 웹 URL: `배포 후 추가 예정`
+
 ## 프로젝트 개요
 
 - 프로젝트명: `사하하 AI`
