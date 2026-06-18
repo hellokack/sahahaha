@@ -65,6 +65,7 @@ RATE_LIMIT_CHAT = os.getenv("RATE_LIMIT_CHAT", "10 per minute")
 
 # ===== 대화 이력 TTL (일 단위) =====
 CONVERSATION_TTL_DAYS = int(os.getenv("CONVERSATION_TTL_DAYS", "30"))
+LIGHTWEIGHT_DEPLOYMENT = os.getenv("LIGHTWEIGHT_DEPLOYMENT", "false").lower() == "true"
 
 # ===== 하이브리드 검색 가중치 (벡터:BM25) =====
 # 합이 1.0이 되도록 설정. 기본 0.7:0.3 (의미 검색 우선, 키워드 보조)

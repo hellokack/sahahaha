@@ -6,6 +6,7 @@ Supabase DB - 원본 크롤링 데이터, 정제 청크, 대화 이력 저장
 import json
 import hashlib
 import logging
+import re
 from datetime import datetime, timezone, timedelta
 
 from config import SUPABASE_SERVICE_KEY
@@ -185,6 +186,55 @@ class Database:
             query = query.eq("service_type", service_type)
         result = query.limit(limit).execute()
         return [_DictObj(r) for r in result.data]
+
+    def keyword_search_chunks(self, query: str, limit: int = 5) -> list[dict]:
+        """Lightweight deployment fallback: server-side keyword search only."""
+        terms = []
+        for token in re.split(r"[\s,./()]+", query or ""):
+            cleaned = token.strip()
+            if len(cleaned) >= 2 and cleaned not in terms:
+                terms.append(cleaned)
+
+        if not terms:
+            return []
+
+        merged: dict[str, dict] = {}
+        for term in terms[:4]:
+            pattern = f"%{term}%"
+            result = self.client.table("processed_chunks") \
+                .select("chunk_id, url, title, content, category, sub_category, service_type, department, summary") \
+                .or_(f"title.ilike.{pattern},content.ilike.{pattern},summary.ilike.{pattern}") \
+                .limit(limit * 3) \
+                .execute()
+
+            for row in result.data or []:
+                chunk_id = row["chunk_id"]
+                item = merged.setdefault(
+                    chunk_id,
+                    {
+                        "id": chunk_id,
+                        "content": row.get("content", ""),
+                        "metadata": {
+                            "url": row.get("url", ""),
+                            "title": row.get("title", ""),
+                            "category": row.get("category", ""),
+                            "service_type": row.get("service_type", "기타"),
+                            "department": row.get("department", "") or "",
+                        },
+                        "similarity": 0.0,
+                        "_hits": 0,
+                    },
+                )
+                item["_hits"] += 1
+
+        ranked = sorted(
+            merged.values(),
+            key=lambda item: (-item["_hits"], len(item["content"])),
+        )[:limit]
+
+        for item in ranked:
+            item["similarity"] = min(0.99, 0.45 + 0.15 * item.pop("_hits", 1))
+        return ranked
 
     # ===== 대화 이력 =====
 

@@ -16,7 +16,13 @@ from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import HumanMessage, AIMessage
 
-from config import GROQ_API_KEY, GROQ_LLM_MODEL, CHATBOT_TEMPERATURE, MAX_CONVERSATION_HISTORY
+from config import (
+    GROQ_API_KEY,
+    GROQ_LLM_MODEL,
+    CHATBOT_TEMPERATURE,
+    MAX_CONVERSATION_HISTORY,
+    LIGHTWEIGHT_DEPLOYMENT,
+)
 from database_db.database import Database
 from chatbot.retriever import HybridRetriever
 from chatbot.dept_directory import normalize_dept_names
@@ -81,7 +87,7 @@ def detect_personal_info(text: str, use_ner: bool = True) -> str | None:
         if pattern.search(text):
             return "주소"
 
-    if use_ner:
+    if use_ner and not LIGHTWEIGHT_DEPLOYMENT:
         try:
             from chatbot.pii_detector import NERPIIDetector
             _, ner_found = NERPIIDetector().detect_and_mask(text)
@@ -110,7 +116,7 @@ def mask_personal_info(text: str, use_ner: bool = True) -> tuple[str, list[str]]
             masked = pattern.sub(f"[MASKED:{info_type}]", masked)
 
     # 2단계: NER 기반 비정형 PII (이름, 주소 등)
-    if use_ner:
+    if use_ner and not LIGHTWEIGHT_DEPLOYMENT:
         try:
             from chatbot.pii_detector import NERPIIDetector
             masked, ner_found = NERPIIDetector().detect_and_mask(masked)
@@ -192,11 +198,12 @@ class ChatBot:
         self._call_lock = threading.Lock()
 
         # NER PII 탐지기 사전 로딩 (첫 요청 지연 방지)
-        try:
-            from chatbot.pii_detector import NERPIIDetector
-            NERPIIDetector()
-        except Exception as e:
-            logger.warning(f"NER 탐지기 사전 로딩 실패 (필요 시 지연 로딩): {e}")
+        if not LIGHTWEIGHT_DEPLOYMENT:
+            try:
+                from chatbot.pii_detector import NERPIIDetector
+                NERPIIDetector()
+            except Exception as e:
+                logger.warning(f"NER 탐지기 사전 로딩 실패 (필요 시 지연 로딩): {e}")
 
         self.prompt = ChatPromptTemplate.from_messages([
             ("system", SYSTEM_PROMPT + ANSWER_STYLE_SUFFIX),
@@ -320,7 +327,7 @@ class ChatBot:
 
         answer = strip_foreign_script(answer)
         # 7. LLM 응답 PII 마스킹 (크롤링 데이터에 섞여 들어온 개인정보 차단)
-        answer, leaked = mask_personal_info(answer)
+        answer, leaked = mask_personal_info(answer, use_ner=not LIGHTWEIGHT_DEPLOYMENT)
         if leaked:
             logger.warning(f"LLM 응답에서 개인정보 감지/마스킹: {leaked}")
 

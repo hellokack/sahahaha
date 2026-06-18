@@ -13,6 +13,7 @@ from config import (
     HYBRID_VECTOR_WEIGHT,
     HYBRID_BM25_WEIGHT,
     HYBRID_BM25_TOP_N,
+    LIGHTWEIGHT_DEPLOYMENT,
 )
 
 logger = logging.getLogger(__name__)
@@ -34,8 +35,16 @@ def _normalize_scores(scored_items: list[tuple[str, float]]) -> dict[str, float]
 
 class HybridRetriever:
     def __init__(self):
-        self.vs = VectorStore()
         self.db = Database()
+        self.lightweight = LIGHTWEIGHT_DEPLOYMENT
+
+        if self.lightweight:
+            self.vs = None
+            self.bm25 = None
+            logger.info("Lightweight deployment mode: vector/BM25 loading skipped")
+            return
+
+        self.vs = VectorStore()
 
         # BM25 인덱스 사전 로딩 (지연 로딩하면 첫 질문 시 수 초 지연)
         try:
@@ -209,6 +218,14 @@ class HybridRetriever:
 
         degraded = False
         reason: str | None = None
+        official_docs = self._staff_results_to_documents(query, limit=max(k, 3))
+
+        if self.lightweight:
+            keyword_docs = self.db.keyword_search_chunks(query, limit=k)
+            combined = official_docs + keyword_docs
+            if not combined:
+                return {"results": [], "degraded": True, "reason": "lightweight_keyword_only"}
+            return {"results": combined[:k], "degraded": True, "reason": "lightweight_keyword_only"}
 
         try:
             # 1차: 메타데이터 필터 + 벡터 검색 (k의 2배를 가져와 재랭킹 여유 확보)
@@ -227,7 +244,6 @@ class HybridRetriever:
             logger.warning(f"벡터 검색 실패: {e}")
             return {"results": [], "degraded": True, "reason": "vector_search_failed"}
 
-        official_docs = self._staff_results_to_documents(query, limit=max(k, 3))
         if official_docs:
             results = official_docs + results
 
