@@ -3,7 +3,7 @@
 ## 데모 기본 정보
 
 - 서비스 URL: `배포 후 입력`
-- 영상 URL: `촬영 후 업로드 링크 입력`
+- 영상 URL: [구글드라이브 시연영상](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing)
 - 목표 길이: `2분 30초 ~ 3분`
 
 ## 데모 목적

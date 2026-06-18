@@ -50,4 +50,4 @@ Railway용으로도 [Week14_Final_SahahaAI/Dockerfile](./Week14_Final_SahahaAI/D
 
 - 서비스 URL: `TBD`
 - 헬스체크 URL: `TBD/healthz`
-- 데모 영상 URL: `TBD`
+- 데모 영상 URL: [구글드라이브 시연영상](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing)

@@ -27,8 +27,8 @@
 | 릴리스 태그 `v1.0.0` 이상 | 완료 | `v1.0.0` |
 | 회고문 | 완료 | [RETROSPECTIVE.md](./RETROSPECTIVE.md) |
 | 3분 이내 데모 대본 | 완료 | [DEMO.md](./DEMO.md) |
+| 데모 영상 URL | 완료 | [구글드라이브 영상 링크](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing) |
 | 공개 웹 URL | 배포 계정 필요 | [DEPLOYMENT.md](./DEPLOYMENT.md) |
-| 업로드된 데모 영상 URL | 촬영 후 추가 필요 | [DEMO.md](./DEMO.md) |
 
 ## 앱이 하는 일
 
@@ -47,7 +47,7 @@
 - 변경 이력: [CHANGELOG.md](./CHANGELOG.md)
 - 모델 카드: [MODEL_CARD.md](./MODEL_CARD.md)
 - 회고문: [RETROSPECTIVE.md](./RETROSPECTIVE.md)
-- 데모 대본: [DEMO.md](./DEMO.md)
+- 데모 대본 및 영상 정보: [DEMO.md](./DEMO.md)
 
 ## 실행 방법
 
@@ -124,10 +124,9 @@ python -m unittest discover -s tests -v
 ## 현재 남은 수동 작업
 
 - 실제 공개 배포 URL 발급
-- 데모 영상 촬영 및 업로드
 
 ## 비고
 
-- `.env`는 의도적으로 버전 관리에서 제외했습니다.
+- `.env`와 `.mp4` 파일은 의도적으로 버전 관리에서 제외했습니다.
 - 최종 코드는 팀 저장소에서 개인 제출 저장소로 정리해 옮겼습니다.
-- 과제 제출 직전에는 공개 웹 URL과 영상 URL만 추가하면 됩니다.
+- 과제 제출 직전에는 공개 웹 URL만 추가하면 됩니다.

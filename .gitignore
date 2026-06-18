@@ -5,4 +5,5 @@ __pycache__/
 *.pyc
 *.log
 *.tar
+*.mp4
 Week14_Final_SahahaAI/data/pipeline.log
