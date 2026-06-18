@@ -1,0 +1,33 @@
+name: Week14 Final Security Scan
+
+on:
+  pull_request:
+    paths:
+      - "Week14_Final_SahahaAI/requirements*.txt"
+      - ".github/workflows/week14-final-security.yml"
+  push:
+    branches:
+      - "main"
+    paths:
+      - "Week14_Final_SahahaAI/requirements*.txt"
+      - ".github/workflows/week14-final-security.yml"
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install pip-audit
+        run: python -m pip install --upgrade pip pip-audit
+
+      - name: Audit Python dependencies
+        run: pip-audit -r Week14_Final_SahahaAI/requirements.txt

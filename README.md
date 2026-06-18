@@ -1,35 +1,58 @@
-# 🚀 Sahaha: 사하구청 맞춤형 AI 챗봇 서비스
+# Sahaha Final Submission Repository
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)
-![Coverage](https://img.shields.io/badge/coverage-100%25-success.svg)
+This repository is the personal final-submission mirror for the `Sahaha` capstone AI OSS project.
 
-**Sahaha**는 사하구 주민들을 위한 행정 정보 안내 및 민원 상담을 돕는 AI 기반 오픈소스 챗봇 프로젝트입니다. 
+## Final Project Location
 
-## ✨ 핵심 기능 (AI Features)
-* **RAG 기반 행정 상담:** 사하구청 데이터를 실시간으로 참조하여 정확한 정보 제공
-* **멀티 플랫폼 지원:** 웹 UI 및 API 제공
-* **지능형 성능 모니터링:** 헬스체크 및 실시간 로그 관측성 확보
+The final deliverable source code lives in [Week14_Final_SahahaAI](./Week14_Final_SahahaAI).
 
-## 🛠️ 기술 스택 및 엔지니어링 프로세스
-* **Frontend:** React, Vercel (Auto-Deployment)
-* **Testing:** Jest (Unit Test), Playwright (E2E)
-* **DevOps:** GitHub Actions (CI/CD), Feature Flags, Dependabot
-* **Docs:** ADR, Retrospective, Contributing Guide
+## What This Project Does
 
-## 📂 프로젝트 문서 (Documentation)
-* [기여 가이드 (Contributing)](./CONTRIBUTING.md)
-* [아키텍처 결정 기록 (ADR)](./ADR.md)
-* [보안 규정 (Dependabot)](./.github/dependabot.yml)
-* [최종 회고록 (Retrospective)](./RETROSPECTIVE.md)
+Sahaha is a public-service AI assistant for Saha-gu Office. It uses retrieval-augmented generation (RAG) over official Saha-gu website data and provides:
 
-## 🏁 빠른 시작 (Quick Start)
+- A working chat UI and API
+- Official department and contact lookup based on the Saha-gu staff directory
+- Privacy-input blocking and reply sanitization
+- Hybrid retrieval with vector search and BM25
+
+## Submission Artifacts
+
+- Final app source: [Week14_Final_SahahaAI](./Week14_Final_SahahaAI)
+- Runbook and rollback plan: [RUNBOOK.md](./RUNBOOK.md)
+- Architecture decision record: [ADR.md](./ADR.md)
+- Changelog: [CHANGELOG.md](./CHANGELOG.md)
+- Model card: [MODEL_CARD.md](./MODEL_CARD.md)
+- Retrospective: [RETROSPECTIVE.md](./RETROSPECTIVE.md)
+- Demo notes: [DEMO.md](./DEMO.md)
+
+## CI / Security / Operations
+
+- PR gate CI: [week14-final-ci.yml](./.github/workflows/week14-final-ci.yml)
+- Python dependency update policy: [dependabot.yml](./.github/dependabot.yml)
+- Python security scan: [week14-final-security.yml](./.github/workflows/week14-final-security.yml)
+- Health check endpoint: `GET /healthz`
+- Metrics endpoint: `GET /api/stats`
+
+## Local Run
+
 ```bash
-npm install
-npm test
-npm run start
+cd Week14_Final_SahahaAI
+pip install -r requirements.txt
+python main.py --mode web
+```
 
-본 프로젝트는 동아대학교 AI학과 캡스톤 디자인 과정의 일환으로 생성형 AI의 도움을 받아 개발되었습니다.
+Default local URL:
 
+```text
+http://127.0.0.1:5000
+```
 
----
+## Release
+
+The final release tag for submission is planned as `v1.0.0`.
+
+## Notes
+
+- `.env` is intentionally excluded from version control.
+- The final code was migrated from the team repository into this personal submission repository.
+- If a live public deployment URL is required by the course portal, add it to [DEMO.md](./DEMO.md) after deployment secrets are configured.

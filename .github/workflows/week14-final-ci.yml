@@ -1,0 +1,40 @@
+name: Week14 Final PR Gate
+
+on:
+  pull_request:
+    paths:
+      - "Week14_Final_SahahaAI/**"
+      - ".github/workflows/week14-final-ci.yml"
+  push:
+    branches:
+      - "main"
+    paths:
+      - "Week14_Final_SahahaAI/**"
+      - ".github/workflows/week14-final-ci.yml"
+
+jobs:
+  submission-checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Week14_Final_SahahaAI
+    env:
+      SECRET_KEY: test-secret
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install CI dependencies
+        run: pip install -r requirements-ci.txt
+
+      - name: Compile Python modules
+        run: python -m py_compile app.py main.py config.py chatbot/dept_directory.py crawler/staff_directory.py
+
+      - name: Run submission smoke tests
+        run: python -m unittest discover -s tests -v

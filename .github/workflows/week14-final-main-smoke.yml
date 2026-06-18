@@ -1,0 +1,39 @@
+name: Week14 Final Main Smoke
+
+on:
+  push:
+    branches:
+      - "main"
+    paths:
+      - "Week14_Final_SahahaAI/**"
+      - ".github/workflows/week14-final-main-smoke.yml"
+
+jobs:
+  health-smoke:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: Week14_Final_SahahaAI
+    env:
+      SECRET_KEY: test-secret
+      FLASK_PORT: "8000"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install CI dependencies
+        run: pip install -r requirements-ci.txt
+
+      - name: Start service
+        run: |
+          python -m uvicorn app:app --host 127.0.0.1 --port 8000 &
+          sleep 8
+
+      - name: Verify health check
+        run: curl --fail http://127.0.0.1:8000/healthz

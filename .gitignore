@@ -1,1 +1,8 @@
 node_modules/
+.env
+.venv/
+__pycache__/
+*.pyc
+*.log
+*.tar
+Week14_Final_SahahaAI/data/pipeline.log

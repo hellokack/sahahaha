@@ -1,10 +1,16 @@
 version: 2
 updates:
-  - package-ecosystem: "npm" # Node.js 패키지 보안 검사
+  - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "weekly"
-  - package-ecosystem: "github-actions" # Actions 파이프라인 보안 검사
+
+  - package-ecosystem: "github-actions"
     directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "pip"
+    directory: "/Week14_Final_SahahaAI"
     schedule:
       interval: "weekly"

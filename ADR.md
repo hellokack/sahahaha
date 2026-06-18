@@ -1,22 +1,28 @@
-# ADR 001: Sahaha 프로젝트 아키텍처 및 배포/보안 전략
+# ADR-001: Final Submission Architecture
 
-## 상태 (Status)
-Accepted (승인됨)
+## Status
 
-## 컨텍스트 (Context)
-캡스톤 프로젝트 최종 납품을 위해 신뢰성 있고 유지보수 가능한 아키텍처 구성이 필요하다. 지속적인 통합(CI)과 지속적인 배포(CD), 장애 발생 시 롤백 계획, 관측성(모니터링), 보안 검증이 필수적이다.
+Accepted
 
-## 결정 (Decision)
-1. **CI/CD 및 배포 (Deployment)**
-   * GitHub Actions를 통해 코드 푸시 시 단위 테스트(Jest)와 커버리지 검사를 강제(PR 게이트)한다.
-   * 테스트 통과 후 `main` 브랜치에 병합되면 Vercel을 통해 프론트엔드가 자동 배포되도록 구성한다.
-2. **보안 (Security)**
-   * `Dependabot`을 도입하여 `npm` 패키지 및 `github-actions` 의존성의 취약점을 매주 스캔하고 패치 PR을 자동 생성한다.
-3. **롤백 (Rollback) 및 헬스체크 (Health Check)**
-   * 10주차에 설정한 `/healthz` 엔드포인트를 통해 서비스 상태를 모니터링한다.
-   * 배포 후 크리티컬 에러 발생 시, Vercel의 'Instant Rollback' 기능을 활용해 가장 최근의 안정적인 빌드 버전으로 1초 이내에 롤백한다.
-4. **관측성 (Observability)**
-   * 11주차, 13주차에 도입한 Feature Flag 및 이벤트 추적 로직을 바탕으로, 사용자 행동 지표(A/B 테스트 로그)를 수집하여 대시보드 리포트로 관리한다.
+## Context
 
-## 결과 (Consequences)
-* **장점:** 개발자는 비즈니스 로직 및 AI 기능 고도화에 집중할 수 있으며, 자동화된 보안 스캔으로 취약점에 빠르게 대응하여 프로젝트의 안정성이 극대화된다.
+The final capstone submission needs a public GitHub repository, a working AI feature, a PR gate, health checks, rollback guidance, and observability evidence. The original team repository was not suitable for an individual submission, so the project needed a personal-repository mirror without secrets.
+
+## Decision
+
+We keep the final application in the `Week14_Final_SahahaAI` folder inside this repository and treat the repository root as the submission and operations layer.
+
+Key decisions:
+
+- Use FastAPI for the web server and chat API.
+- Keep the RAG pipeline in Python with official Saha-gu data as the only answer source.
+- Use the official Saha-gu staff directory as the source of truth for department contacts.
+- Provide a lightweight PR gate through GitHub Actions using syntax checks and unit tests.
+- Expose `GET /healthz` for health checks and `GET /api/stats` for operational metrics.
+- Document rollback and deployment procedure in `RUNBOOK.md`.
+
+## Consequences
+
+- The repository satisfies the course OSS checklist more clearly than the original team repository.
+- Secrets remain external because `.env` is excluded.
+- The project is easier to review because submission documents live at the repository root and the executable app lives in one dedicated folder.

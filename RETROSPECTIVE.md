@@ -1,19 +1,30 @@
-# 📝 프로젝트 회고록 (RETROSPECTIVE)
+# RETROSPECTIVE
 
-## 1. 프로젝트 개요
-* **프로젝트명:** Sahaha (사하구청 AI 챗봇 서비스)
-* **기간:** 2026.03 ~ 2026.06 (14주)
-* **참여자:** 하윤성 (Dong-A Univ. AI Dept.)
+## What Went Well
 
-## 2. 무엇을 배웠는가? (Lessons Learned)
-* **단순 코딩을 넘어선 엔지니어링:** 단순히 AI 모델을 돌리는 것에 그치지 않고, 오픈소스 표준 규격(OSS)을 준수하고 CI/CD 파이프라인을 구축하는 '엔지니어링'의 중요성을 깨달았습니다.
-* **테스트 자동화의 가치:** Shift-Left 테스트 전략과 Jest를 통한 커버리지 80% 달성 경험을 통해, 배포 전 결함을 잡는 것이 운영 비용을 얼마나 획기적으로 줄이는지 체감했습니다.
-* **데이터 기반 의사결정:** Lean Startup 방법론을 적용하여 Feature Flag 기반의 A/B 테스트를 진행하고, 실제 지표(CTR 등)를 바탕으로 Pivot/Persevere 결정을 내리는 실무적 감각을 익혔습니다.
+- The project reached a working AI assistant with both UI and API.
+- Retrieval quality improved after official staff-directory integration for department and contact answers.
+- Privacy handling became safer through front-end blocking and reply masking.
+- The project accumulated enough documentation and operational context to be converted into a proper OSS submission.
 
-## 3. 어려웠던 점과 극복 방안 (Challenges)
-* **환경 설정의 복잡성:** Docker, Vercel, Render 등 다양한 클라우드 환경을 연동하는 과정에서 잦은 배포 에러가 발생했으나, 상세한 헬스체크 로직과 ADR 기록을 통해 체계적으로 해결해 나갔습니다.
-* **보안 및 규정 준수:** 실무 수준의 보안 스캔(Dependabot)을 도입하며 의존성 관리의 엄격함을 배웠습니다.
+## What Was Difficult
 
-## 4. 향후 발전 방향 (Future Work)
-* **모델 고도화:** 현재의 RAG 파이프라인을 더욱 정교화하여 사하구 특화 데이터를 더 정확하게 답변하도록 개선할 예정입니다.
-* **확장성:** 사하구뿐만 아니라 타 지자체에서도 범용적으로 사용할 수 있는 오픈소스 AI 솔루션으로 발전시키고자 합니다.
+- Department names and phone numbers were initially inconsistent because free-form content and structured contacts were mixed.
+- Korean text encoding and historical files made some edits more fragile than expected.
+- The original team repository structure was not optimized for an individual final submission.
+
+## What We Changed Late In The Project
+
+- Added staff-directory crawling and contact enforcement.
+- Removed visible HTML fragments from privacy warnings.
+- Added dedicated submission documents, PR-gate workflow, and runbook material in the personal repository.
+
+## What I Would Improve Next
+
+- Add a fully automated production deployment target with secrets-managed hosting.
+- Add a richer metrics dashboard on top of `/api/stats`.
+- Expand automated eval coverage for department-routing and privacy cases.
+
+## Final Reflection
+
+The biggest lesson was that a useful AI feature is not enough by itself. The final submission also needs reproducibility, operational clarity, and safety evidence. Turning the team codebase into a personal OSS-style delivery highlighted how important documentation, release discipline, and testable interfaces are.
