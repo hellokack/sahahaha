@@ -7,16 +7,21 @@
 - GitHub 저장소: [hellokack/sahahaha](https://github.com/hellokack/sahahaha)
 - 공개 웹 URL: [https://sahaha-final-ai.onrender.com/](https://sahaha-final-ai.onrender.com/)
 - 헬스체크 URL: [https://sahaha-final-ai.onrender.com/healthz](https://sahaha-final-ai.onrender.com/healthz)
-- 시연 영상: [Google Drive 시연 영상](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing)
+- 시연 영상: [Google Drive 링크](https://drive.google.com/file/d/13rXOmVOlGu4-uUfxlnP-5Lz28X6Q1rHd/view?usp=sharing)
+
+## 민감정보 안내
+
+- 이 저장소에는 `.env`, API 키, 비밀번호, 개인 식별 정보 등 민감정보를 포함하지 않았습니다.
+- 대용량 시연 영상 파일(`.mp4`)도 저장소에 직접 포함하지 않고 외부 링크로만 제공합니다.
 
 ## 프로젝트 개요
 
 - 프로젝트명: `사하하 AI`
 - 최종 앱 위치: [Week14_Final_SahahaAI](./Week14_Final_SahahaAI)
 - 목적: 사하구청 관련 민원과 행정 질문에 대해 AI 채팅 UI와 공식 부서/연락처 안내를 제공합니다.
-- 특징:
+- 주요 기능:
   - 사하구청 공식 데이터 기반 답변
-  - 직원업무안내 페이지 기반 담당부서/전화번호 안내
+  - 직원업무안내 페이지 기반 담당부서 및 전화번호 안내
   - 개인정보 입력 차단
   - 핵심 답변 하이라이트 제공
   - Render 배포 및 헬스체크 지원
@@ -26,10 +31,10 @@
 | 요구사항 | 상태 | 근거 |
 | --- | --- | --- |
 | 공개 GitHub 저장소 | 완료 | 본 저장소 |
-| README / CONTRIBUTING / CODE_OF_CONDUCT / LICENSE | 완료 | 각 루트 문서 포함 |
+| README / CONTRIBUTING / CODE_OF_CONDUCT / LICENSE | 완료 | 루트 문서 포함 |
 | 동작 가능한 AI 기능(API 또는 UI) | 완료 | `Week14_Final_SahahaAI` |
 | PR 게이트 기준 CI/CD | 완료 | `.github/workflows/week14-final-ci.yml` |
-| main 배포 | 완료 | Render 배포 URL 제공 |
+| main 배포 | 완료 | Render 공개 URL 제공 |
 | 헬스체크 | 완료 | `/healthz` |
 | 롤백 계획 | 완료 | `RUNBOOK.md` |
 | 관측성(로그/메트릭/대시보드) | 완료 | `RUNBOOK.md`, `/api/stats` |
@@ -51,7 +56,7 @@
 - 회고문: [RETROSPECTIVE.md](./RETROSPECTIVE.md)
 - 시연 가이드: [DEMO.md](./DEMO.md)
 
-## 실행 방법
+## 로컬 실행 방법
 
 ### 1. 환경 변수 준비
 
@@ -106,6 +111,6 @@ python -m unittest discover -s tests -v
 
 ## 비고
 
-- `.env`, `.mp4` 등 민감/대용량 파일은 버전 관리에서 제외했습니다.
-- Render 무료 플랜 배포를 위해 경량 배포 모드를 추가했습니다.
-- 공개 웹 URL, 시연 영상 URL, GitHub 저장소 URL까지 제출 기준에 맞게 README에 모두 정리했습니다.
+- `.env`, `.mp4` 등 민감정보 또는 대용량 파일은 버전 관리에서 제외했습니다.
+- Render 무료 플랜 배포를 위해 경량 배포 모드를 적용했습니다.
+- 공개 웹 URL, 시연 영상 URL, GitHub 저장소 URL을 README 상단에 정리했습니다.
