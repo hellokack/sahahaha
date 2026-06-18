@@ -12,9 +12,6 @@ import json
 import time
 import threading
 import logging
-from langchain_groq import ChatGroq
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.messages import HumanMessage, AIMessage
 
 from config import (
     GROQ_API_KEY,
@@ -185,6 +182,14 @@ class ChatBot:
         if not GROQ_API_KEY:
             raise ValueError("GROQ_API_KEY를 .env에 설정해주세요")
 
+        # Render 무료 플랜에서는 헬스체크가 먼저 통과하는 것이 중요하므로
+        # LangChain/Groq 계열은 첫 챗봇 초기화 시점에만 로드한다.
+        from langchain_groq import ChatGroq
+        from langchain_core.messages import AIMessage, HumanMessage
+        from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+
+        self._HumanMessage = HumanMessage
+        self._AIMessage = AIMessage
         self.llm = ChatGroq(
             model=GROQ_LLM_MODEL,
             api_key=GROQ_API_KEY,
@@ -223,9 +228,9 @@ class ChatBot:
         messages = []
         for msg in conversation:
             if msg["role"] == "user":
-                messages.append(HumanMessage(content=msg["content"]))
+                messages.append(self._HumanMessage(content=msg["content"]))
             elif msg["role"] == "assistant":
-                messages.append(AIMessage(content=msg["content"]))
+                messages.append(self._AIMessage(content=msg["content"]))
         return messages
 
     def chat(self, session_id: str, user_message: str) -> dict:
