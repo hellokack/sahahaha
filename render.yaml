@@ -5,7 +5,7 @@ services:
     plan: free
     rootDir: Week14_Final_SahahaAI
     buildCommand: pip install -r requirements.txt
-    startCommand: python -m uvicorn app:app --host 0.0.0.0 --port $PORT --lifespan off
+    startCommand: python -m uvicorn app:app --host 0.0.0.0 --port $PORT --lifespan on
     healthCheckPath: /healthz
     autoDeploy: true
     envVars:
